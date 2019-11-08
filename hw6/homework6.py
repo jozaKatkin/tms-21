@@ -50,3 +50,48 @@ for i, row in enumerate(my_matrix):
         max_sum = row_sum
         index = i
 print(f"max sum row index: {index}")
+
+# Найти индекс колонки с минимальной суммой элементов
+min_sum = 0
+colon = 0
+for i in range(n):
+    colon_sum = 0
+    for j in range(m):
+        colon_sum += my_matrix[j][i]
+    if colon_sum < min_sum:
+        min_sum = colon_sum
+        colon = i
+print(f"min sum colon index: {colon}")
+
+# Обнулить все элементы выше главной диагонали
+print("old matrix:")
+for i in range(m):
+    for j in range(n):
+        print("%4d" % my_matrix[i][j], end='')
+    print()
+for i in range(m):
+    for j in range(n):
+        if i < j:
+            my_matrix[i][j] = 0
+print("new matrix:")
+for i in range(m):
+    for j in range(n):
+        print("%4d" % my_matrix[i][j], end='')
+    print()
+
+# Обнулить все элементы ниже главной диагонали
+print("old matrix:")
+for i in range(m):
+    for j in range(n):
+        print("%4d" % my_matrix[i][j], end='')
+    print()
+# print(my_matrix)
+for i in range(m):
+    for j in range(n):
+        if i > j:
+            my_matrix[i][j] = 0
+print("new matrix:")
+for i in range(m):
+    for j in range(n):
+        print("%4d" % my_matrix[i][j], end='')
+    print()
