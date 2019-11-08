@@ -23,3 +23,11 @@ for row in my_matrix:
         if max_num < j:
             max_num = j
 print(f"Maximum number: {max_num}")
+
+# Найти минимальный элемент матрицы
+min_num = my_matrix[0][0]
+for row in my_matrix:
+    for j in row:
+        if min_num > j:
+            min_num = j
+print(f"Minimum number: {min_num}")
