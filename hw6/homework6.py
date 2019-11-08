@@ -38,3 +38,15 @@ for row in my_matrix:
     for i in row:
         add += i
 print(f"Sum of elements in matrix: {add}")
+
+# Найти индекс ряда с максимальной суммой элементов
+max_sum = 0
+index = 0
+for i, row in enumerate(my_matrix):
+    row_sum = 0
+    for j in row:
+        row_sum += j
+    if max_sum < row_sum:
+        max_sum = row_sum
+        index = i
+print(f"max sum row index: {index}")
