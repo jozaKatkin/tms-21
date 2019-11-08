@@ -31,3 +31,10 @@ for row in my_matrix:
         if min_num > j:
             min_num = j
 print(f"Minimum number: {min_num}")
+
+# Найти сумму всех элементов матрицы
+add = 0
+for row in my_matrix:
+    for i in row:
+        add += i
+print(f"Sum of elements in matrix: {add}")
