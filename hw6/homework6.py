@@ -100,7 +100,7 @@ for i in range(m):
 m = int(input())
 n = int(input())
 matrix_a = []
-print("matrix_a")
+print("matrix_a:")
 for i in range(m):
     line = []
     for j in range(n):
@@ -110,7 +110,7 @@ for i in range(m):
     print()
 # print(matrix_a)
 matrix_b = []
-print("matrix_b")
+print("matrix_b:")
 for i in range(m):
     line = []
     for j in range(n):
@@ -120,3 +120,14 @@ for i in range(m):
     print()
 # print(matrix_b)
 
+# Создать матрицу равную сумме matrix_a и matrix_b
+sum_matrix = []
+print("sum of matrix_a and matrix_b:")
+for i in range(m):
+    row = []
+    for j in range(n):
+        sum_elem = matrix_a[i][j] + matrix_b[i][j]
+        row.append(sum_elem)
+        print("%4d" % row[j], end='')
+    sum_matrix.append(row)
+    print()
