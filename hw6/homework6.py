@@ -95,3 +95,28 @@ for i in range(m):
     for j in range(n):
         print("%4d" % my_matrix[i][j], end='')
     print()
+
+# Создать две новые матрицы matrix_a, matrix_b случайных чисел размерностью n*m
+m = int(input())
+n = int(input())
+matrix_a = []
+print("matrix_a")
+for i in range(m):
+    line = []
+    for j in range(n):
+        line.append(randint(-10, 10))
+        print("%4d" % line[j], end='')
+    matrix_a.append(line)
+    print()
+# print(matrix_a)
+matrix_b = []
+print("matrix_b")
+for i in range(m):
+    line = []
+    for j in range(n):
+        line.append(randint(-10, 10))
+        print("%4d" % line[j], end='')
+    matrix_b.append(line)
+    print()
+# print(matrix_b)
+
