@@ -131,3 +131,18 @@ for i in range(m):
         print("%4d" % row[j], end='')
     sum_matrix.append(row)
     print()
+# print(sum_matrix)
+
+# Создать матрицу равную разности matrix_a и matrix_b.
+diff_matrix = []
+print("difference of matrix_a and matrix_b:")
+for i in range(m):
+    row = []
+    for j in range(n):
+        diff_elem = matrix_a[i][j] - matrix_b[i][j]
+        row.append(diff_elem)
+        print("%4d" % row[j], end='')
+    diff_matrix.append(row)
+    print()
+# print(diff_matrix)
+
