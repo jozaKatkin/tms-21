@@ -51,6 +51,30 @@ for i, row in enumerate(my_matrix):
         index = i
 print(f"max sum row index: {index}")
 
+# Найти индекс колонки с максимальной суммой элементов
+max_sum = 0
+colon = 0
+for i in range(n):
+    colon_sum = 0
+    for j in range(m):
+        colon_sum += my_matrix[j][i]
+    if colon_sum > max_sum:
+        max_sum = colon_sum
+        colon = i
+print(f"max sum colon index: {colon}")
+
+# Найти индекс ряда с минимальной суммой элементов
+min_sum = 0
+index = 0
+for i, row in enumerate(my_matrix):
+    row_sum = 0
+    for j in row:
+        row_sum += j
+    if min_sum > row_sum:
+        min_sum = row_sum
+        index = i
+print(f"min sum row index: {index}")
+
 # Найти индекс колонки с минимальной суммой элементов
 min_sum = 0
 colon = 0
