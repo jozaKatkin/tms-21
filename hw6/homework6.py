@@ -1,10 +1,10 @@
 # Создать матрицу случайных чисел от a до b, размерность матрицы n*m
 from random import randint
 
-m = int(input())
-n = int(input())
-a = int(input())
-b = int(input())
+m = int(input("Enter m: "))
+n = int(input("Enter n: "))
+a = int(input("From: "))
+b = int(input("To: "))
 my_matrix = []
 print("matrix")
 for i in range(m):
@@ -97,8 +97,8 @@ for i in range(m):
     print()
 
 # Создать две новые матрицы matrix_a, matrix_b случайных чисел размерностью n*m
-m = int(input())
-n = int(input())
+m = int(input("Enter m: "))
+n = int(input("Enter n: "))
 matrix_a = []
 print("matrix_a:")
 for i in range(m):
@@ -146,3 +146,17 @@ for i in range(m):
     print()
 # print(diff_matrix)
 
+# Создать новую матрицу равную matrix_a умноженной на g. g вводится с клавиатуры
+g = int(input("Enter multiplier: "))
+print()
+print(f"Multiplication of matrix_a on {g}:")
+multi_matrix = []
+for i in range(m):
+    row = []
+    for j in range(n):
+        multi_elem = matrix_a[i][j] * g
+        row.append(multi_elem)
+        print("%4d" % row[j], end='')
+    multi_matrix.append(row)
+    print()
+# print(multi_matrix)
