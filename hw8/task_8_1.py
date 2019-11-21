@@ -9,7 +9,7 @@ def fact2(n):
         for num in range(2, n + 1, 2):
             fact *= num
     if n % 2 != 0:  # odd
-        for num in range(1, n + 1, 2):
+        for num in range(3, n + 1, 2):
             fact *= num
 
     return fact
