@@ -16,7 +16,7 @@ def Sin1(x, e):
     n = 0
     s = 0
     while True:
-        a = x ** (2 * n + 1) / (factorial(2 * n + 1))
+        a = x ** (2 * n + 1) / (factorial((2 * n + 1)))
         if n % 2 != 0:
             a = -a
         s += a
@@ -27,12 +27,8 @@ def Sin1(x, e):
 
 def main():
     x = 2
-    print(Sin1(x, 0.1))
-    print(Sin1(x, 0.01))
-    print(Sin1(x, 0.65))
-    print(Sin1(x, 0.78))
-    print(Sin1(x, 0.2))
-    print(Sin1(x, 0.81))
+    eps = [0.1, 0.01, 0.65, 0.78, 0.2, 0.81]
+    print([Sin1(x, e) for e in eps])
 
 
 if __name__ == "__main__":
