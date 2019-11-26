@@ -1,0 +1,2 @@
+make it zero 1111
+make it one 0000
