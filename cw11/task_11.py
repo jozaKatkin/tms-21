@@ -1,29 +1,63 @@
 class Dog:
     def __init__(self, name, age, height, weight, master, address="Minsk"):
-        self.name = name
-        self.age = age
-        self.height = height
-        self.weight = weight
+        self.__name = name
+        self.__age = age
+        self.__height = height
+        self.__weight = weight
         self.__master = master
         self.__address = address
 
-    def get_master(self):
+    @property
+    def master(self):
         return self.__master
 
-    def set_master(self, master):
+    @master.setter
+    def master(self, master):
         self.__master = master
 
-    def get_address(self):
+    @property
+    def address(self):
         return self.__address
 
-    def set_address(self, address):
+    @address.setter
+    def address(self, address):
         self.__address = address
 
-    def change_name(self, name):
-        self.name = name
+    @property
+    def name(self):
+        return self.__name
 
-    def change_height(self, height):
-        self.height = height
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
+    def height(self):
+        return self.__height
+
+    @height.setter
+    def height(self, height):
+        self.__height = height
+
+    @property
+    def weight(self):
+        return self.__weight
+
+    @weight.setter
+    def weight(self, weight):
+        self.__weight = weight
+
+    @property
+    def age(self):
+        return self.__age
+
+    @age.setter
+    def age(self, age):
+        self.__age = age
+
+
+
+
 
     def bark(self):
         print("Woof-woof!")
