@@ -1,12 +1,19 @@
 class Dog:
-    def __init__(self, name, age, height, weight, ):
+    def __init__(self, name, age, height, weight, master):
         self.name = name
         self.age = age
         self.height = height
         self.weight = weight
+        self.__master = master
+
+    def get_master(self):
+        return self.__master
 
     def change_name(self, name):
         self.name = name
+
+    def change_height(self, height):
+        self.height = height
 
     def bark(self):
         print("Woof-woof!")
@@ -19,14 +26,17 @@ class Dog:
 
 
 def main():
-    dog1 = Dog("Bob", 3, 40, 3)
+    dog1 = Dog("Bob", 3, 40, 3, "Joza")
+    print(f"Master: {dog1.get_master()}")
     dog1.bark()
     dog1.jump()
     dog1.run()
-    print(dog1.height)
-    print(dog1.name)
+    print(f"Height: {dog1.height}")
+    print(f"Name: {dog1.name}")
+    dog1.change_height(50)
     dog1.change_name("Charlie")
-    print(dog1.name)
+    print(f"New height: {dog1.height}")
+    print(f"New name: {dog1.name}")
 
 
 if __name__ == "__main__":
