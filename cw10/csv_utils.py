@@ -9,17 +9,30 @@ def read_csv(filename):
         fields = next(csvreader)
         for row in csvreader:
             rows.append(row)
-        print("Total no. of rows: %d" % (csvreader.line_num))
+    return fields, rows
+
+
+def converter(fields, rows):
+    list_fields = fields.split(",")
+    list_rows = []
+    for row in rows:
+        list_rows.append(row.split(','))
+    return list_fields, list_rows
+
+
+def print_csv(filename):
+    """Printing"""
+    fields, rows = read_csv(filename)
     for col in fields:
-        print("%15s" % col, end='')
+        print("{:_^15s} ".format(col), end='')
     print()
     for row in rows[:5]:
         for col in row:
-            print("%15s" % col, sep='', end='')
+            print("{:_^15s} ".format(col), sep='', end='')
         print()
 
 
-def write_csv(filename, fields, *rows):
+def write_csv(filename, fields, rows):
     """Writing"""
     with open(filename, 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
@@ -27,93 +40,80 @@ def write_csv(filename, fields, *rows):
         csvwriter.writerows(rows)
 
 
-def add_to_csv(filename, *args, position=-1):
+def add_to_csv(filename, row, position=None):
     """Addition"""
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        args = ",".join(args)
-        args = args.split(",")
-        new_list = []
-        for line in csvreader:
-            new_list.append(line)
-        if position == -1:
-            new_list.append(args)
-        else:
-            new_list.insert(position, args)
-    with open(filename, 'w') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerows(new_list)
+    fields, rows = read_csv(filename)
+    if position is None:
+        rows.append(row.split(","))
+    else:
+        rows.insert(position - 1, row.split(","))
+    write_csv(filename, fields, rows)
 
 
-def del_from_csv(filename, position=-1):
+def del_from_csv(filename, position=None):
     """Deletion"""
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        # args = ",".join(args)
-        # args = args.split(",")
-        new_list = []
-        for line in csvreader:
-            new_list.append(line)
-        del new_list[position]
-    with open(filename, 'w') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerows(new_list)
+    fields, rows = read_csv(filename)
+    if position is None:
+        rows.pop()
+    else:
+        rows.pop(position - 1)
+    write_csv(filename, fields, rows)
 
 
-def sum_of_prices(filename):
-    """Count sum of prices for all the items"""
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        items_sum = 0
-        for i, row in enumerate(csvreader):
-            if i == 0:
-                continue
-            items_sum += float(row[1])
-        return items_sum
+def sum_of_items(filename, colon):
+    """Count sum of all the items"""
+    fields, rows = read_csv(filename)
+    colon_index = fields.index(colon)
+    items_sum = 0
+    for i, row in enumerate(rows):
+        items_sum += int(rows[i][colon_index])
+    return items_sum
 
 
-def most_expensive(filename):
+def most_expensive(filename, colon):
     """Find the most expensive item"""
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        max_price = 0
-        for i, row in enumerate(csvreader):
-            if i == 0:
-                pass
-            elif float(row[1]) > max_price:
-                max_price = float(row[1])
-                res = row[0]
-        return res, max_price
+    fields, rows = read_csv(filename)
+    max_price = 0.0
+    colon_index = fields.index(colon)
+    for i, row in enumerate(rows):
+        product_price = float(rows[i][colon_index])
+        if product_price > max_price:
+            max_price = product_price
+            max_prod_index = i
+    index_name = fields.index("name")
+    name = rows[max_prod_index][index_name]
+    return name, max_price
 
 
-def cheapest(filename):
+def cheapest(filename, colon):
     """Find the cheapest item"""
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        min_price = None
-        for i, row in enumerate(csvreader):
-            if i == 0:
-                pass
-            elif min_price is None or float(row[1]) < min_price:
-                min_price = float(row[1])
-                res = row[0]
-        return res, min_price
+    fields, rows = read_csv(filename)
+    colon_index = fields.index(colon)
+    min_price = float(rows[0][colon_index])
+    for i, row in enumerate(rows):
+        product_price = float(rows[i][colon_index])
+        if product_price < min_price:
+            min_price = product_price
+            min_prod_index = i
+    index_name = fields.index("name")
+    name = rows[min_prod_index][index_name]
+    return name, min_price
 
 
-def reduce_quantity(filename, position, quantity=1):
+def reduce_quantity(filename, product_name, quantity=1):
     """Reduce quantity of an item in selected position"""
-    with open(filename, 'r') as csvfile:
-        csvreader = csv.reader(csvfile)
-        new_list = []
-        for i, row in enumerate(csvreader):
-            new_list.append(row)
-            if i == position:
-                row[2] = int(float(row[2]) - float(quantity))
-                res = f"{row[0]}, {row[2] + quantity} --> {row[2]}"
-    with open(filename, 'w') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerows(new_list)
-    return res
+    fields, rows = read_csv(filename)
+    name_index = fields.index("name")
+    quantity_index = fields.index("quantity")
+    for i, row in enumerate(rows):
+        if rows[i][name_index] == product_name:
+            if int(rows[i][quantity_index]) < quantity:
+                print("Bad guy!")
+            else:
+                rows[i][quantity_index] = str(int(rows[i][quantity_index]) - quantity)
+            break
 
-
-
+    else:
+        print(f"Mistake")
+        return
+    write_csv(filename, fields, rows)
