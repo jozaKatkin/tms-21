@@ -4,7 +4,6 @@
 # Возрастные группы: 1-12, 13-18, 19-25, 26-40, 40+.
 
 
-import csv
 from csv_utils import (
     write_csv, converter, read_csv, print_csv
 )
