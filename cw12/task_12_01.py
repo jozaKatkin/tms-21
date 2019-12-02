@@ -88,10 +88,6 @@ def animals_voice(animals):
 
 #
 parrot = Parrot("Yasha", 3, "Joza", 0.2, 10, "Some parrot")
-print(parrot.species)
-print(parrot.weight)
-parrot.change_weight()
-print(parrot.weight)
 parrot.jump(0.6)
 #
 dog = Dog("Fuf", 3, "Joza", 5, 50)
