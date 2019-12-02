@@ -52,6 +52,11 @@ class Cat(Pet):
 
 
 class Parrot(Pet):
+    def __init__(self, name, age, master, weight, height, species):
+        super().__init__(name, age, master, weight, height)
+        self.species = species
+
+
     def fly(self):
         if self.weight > 0.1:
             print("This parrot cannot fly")
@@ -72,7 +77,8 @@ class Parrot(Pet):
 
 
 #
-parrot = Parrot("Yasha", 3, "Joza", 0.2, 10)
+parrot = Parrot("Yasha", 3, "Joza", 0.2, 10, "Some parrot")
+print(parrot.species)
 print(parrot.weight)
 parrot.change_weight()
 print(parrot.weight)
@@ -80,3 +86,4 @@ parrot.jump(0.6)
 #
 dog = Dog("Yasha", 3, "Joza", 0.2, 10)
 dog.jump(0.5)
+#
