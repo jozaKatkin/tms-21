@@ -16,6 +16,9 @@ class Pet:
         else:
             self.height += 0.2
 
+    def voice(self):
+        pass
+
     def run(self):
         print("Run!")
 
@@ -30,7 +33,7 @@ class Pet:
 
 
 class Dog(Pet):
-    def bark(self):
+    def voice(self):
         print("Woof-woof")
 
     def jump(self, height):
@@ -41,7 +44,7 @@ class Dog(Pet):
 
 
 class Cat(Pet):
-    def meow(self):
+    def voice(self):
         print("Meow")
 
     def jump(self, height):
@@ -56,6 +59,8 @@ class Parrot(Pet):
         super().__init__(name, age, master, weight, height)
         self.species = species
 
+    def voice(self):
+        print("You dummy")
 
     def fly(self):
         if self.weight > 0.1:
@@ -76,6 +81,11 @@ class Parrot(Pet):
         self.height += height
 
 
+def animals_voice(animals):
+    for animal in animals:
+        animal.voice()
+
+
 #
 parrot = Parrot("Yasha", 3, "Joza", 0.2, 10, "Some parrot")
 print(parrot.species)
@@ -84,6 +94,9 @@ parrot.change_weight()
 print(parrot.weight)
 parrot.jump(0.6)
 #
-dog = Dog("Yasha", 3, "Joza", 0.2, 10)
+dog = Dog("Fuf", 3, "Joza", 5, 50)
 dog.jump(0.5)
 #
+cat = Cat("Purka", 3, "Joza", 4, 30)
+animals_voice([dog, parrot, cat])
+
