@@ -54,5 +54,28 @@ def filter_users(data, request):
     return list_of_users
 
 
+def search(data, request):
+    list_of_users = []
+    for user in data:
+        for value in user.values():
+            if request in value and user not in list_of_users:
+                list_of_users.append(user)
+    return list_of_users
+
+
+def delete_user(filename, request):
+    data = read_json(filename)
+    user = search(data, request)
+    if len(user) > 1:
+        print("Multiple users upon your request, type in id for better accuracy")
+    elif len(user) < 1:
+        print("No users found upon your request, type in id for better accuracy")
+    else:
+        user = user[0]
+        data.remove(user)
+        write_json(filename, data)
+
+
+
 
 
