@@ -1,4 +1,4 @@
-from prog_tools import (
+from json_tools import (
     write_json,
     read_json,
     create_user,
@@ -81,8 +81,3 @@ write_json(filename, [
     },
 
 ])
-
-
-make_correction(filename, "id", "9999", "Wojak")
-data = read_json(filename)
-print_dicts(filter_users(data, "Blogger"))
