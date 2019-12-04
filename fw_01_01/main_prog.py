@@ -10,15 +10,6 @@ from json_tools import (
     input_to_dict_converter
 )
 
-DEBUG = True
-if DEBUG:
-    func = "1"
-    filename = "users2.json"
-    firstname = "Joe"
-    lastname = "Zakatkin"
-    birthday = "14.05.1900"
-    profession = "Homeless"
-    id_ = "666"
 
 while True:
 

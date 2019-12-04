@@ -13,15 +13,6 @@ def read_json(filename):
         return data
 
 
-# def print_json(filename):
-#     with open(filename):
-#         for user in read_json(filename):
-#             user = user.items()
-#             for key, value in user:
-#                 print(f"{key}: {value}")
-#             print()
-
-
 def print_dicts(data):
     """Pass here a finished list of dictionaries"""
     for user in data:
