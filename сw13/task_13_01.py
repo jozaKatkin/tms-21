@@ -1,8 +1,26 @@
 from random import randint, choice
 from string import ascii_uppercase
+from abc import ABC, abstractmethod
 
 
-class Pet:
+class Animal(ABC):
+    def __init__(self, name, age, master, weight, height, ):
+        self.name = name
+        self.age = age
+        self.master = master
+        self.weight = weight
+        self.height = height
+
+     @abstractmethod
+    def voice(self):
+        pass
+
+
+class WildAnimal(ABC, Animal):
+    pass
+
+
+class Pet(ABC, Animal):
     __counter = 0
 
     def __init__(self, name, age, master, weight, height, ):
@@ -12,6 +30,10 @@ class Pet:
         self.weight = weight
         self.height = height
         Pet.__counter += 1
+
+    @abstractmethod
+    def voice(self):
+        pass
 
     @classmethod
     def get_counter(cls):
@@ -31,9 +53,6 @@ class Pet:
             self.height = height
         else:
             self.height += 0.2
-
-    def voice(self):
-        pass
 
     def run(self):
         print("Run!")
@@ -102,6 +121,20 @@ def animals_voice(animals):
         animal.voice()
 
 
+class Horse(Pet):
+    def voice(self):
+        print("Horsing around")
+
+
+class Donkey(Pet):
+    def voice(self):
+        print("Iihhaaa")
+
+
+class Mule(Donkey, Horse):
+    pass
+
+
 #
 parrot = Parrot("Yasha", 3, "Joza", 0.2, 10, "Some parrot")
 parrot.jump(0.6)
@@ -113,3 +146,8 @@ cat = Cat("Purka", 3, "Joza", 4, 30)
 animals_voice([dog, parrot, cat])
 #
 print(Pet.get_random_name())
+#
+mule = Mule("Pur", 3, "Jiza", 100, 100)
+print(mule.voice())
+#
+Pet()
