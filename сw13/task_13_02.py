@@ -1,8 +1,20 @@
 from abc import ABC, abstractmethod
 
 
+class FelineInterface(ABC):
+    @abstractmethod
+    def scratch(self):
+        raise NotImplemented
+
+
+class CanineInterface(ABC):
+    @abstractmethod
+    def swim(self):
+        raise NotImplemented
+
+
 class Animal(ABC):
-    def __init__(self, name, age, master, weight, height, ):
+    def __init__(self, name, age, master, weight, height):
         self.name = name
         self.age = age
         self.master = master
@@ -14,19 +26,7 @@ class Animal(ABC):
         pass
 
 
-class FelineInterface(ABC):
-    @abstractmethod
-    def scratch(self):
-        pass
-
-
-class CanineInterface(ABC):
-    @abstractmethod
-    def swim(self):
-        pass
-
-
-class WildAnimal(ABC, Animal):
+class WildAnimal(Animal):
     pass
 
 
@@ -46,7 +46,7 @@ class Wolf(WildAnimal, CanineInterface):
         print("All wolfs can swim")
 
 
-class Pet(ABC, Animal):
+class Pet(Animal):
     pass
 
 
