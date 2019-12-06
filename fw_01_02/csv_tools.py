@@ -14,7 +14,7 @@ def read_csv(filename):
 
 def converter(fields, rows):
     """Converting data for writing to csv"""
-    list_fields = fields.split(",")
+    list_fields = fields.split(',')
     list_rows = []
     for row in rows:
         list_rows.append(row.split(','))
@@ -41,14 +41,22 @@ def write_csv(filename, fields, rows):
         csvwriter.writerows(rows)
 
 
-def add_to_csv(filename, row, position=None):
+def write_row_to_csv(filename, row):
+    with open(filename, 'w') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(row)
+
+
+def add_to_csv(filename, row, answer):
     """Adding user to csv"""
-    fields, rows = read_csv(filename)
-    if position is None:
+    if answer == "yes":
+        fields, rows = read_csv(filename)
         rows.append(row.split(","))
+        write_csv(filename, fields, rows)
+    elif answer == "no":
+        write_row_to_csv(filename, row.split(","))
     else:
-        rows.insert(position - 1, row.split(","))
-    write_csv(filename, fields, rows)
+        print("Invalid input\nType in yes/no\n")
 
 
 def del_from_csv(filename, request):
@@ -58,9 +66,10 @@ def del_from_csv(filename, request):
     if len(user) > 1:
         print("Multiple users found upon your request, type in id for better accuracy")
     elif len(user) < 1:
-        print("No users found upon your request, type in id for better accuracy")
+        pass
     else:
-        print(user)
+        print(user[0])
+        user = user[0]
         rows.remove(user)
         write_csv(filename, fields, rows)
         print("User is deleted")
@@ -71,10 +80,10 @@ def filter_users(filename, request):
     list_of_users = []
     fields, rows = read_csv(filename)
     if len(rows) == 0:
-        print("File is empty\n")
+        print("No rows found\n")
     else:
         for row in rows:
-            if request in row.split(","):
+            if request in row and row not in list_of_users:
                 list_of_users.append(row)
         if len(list_of_users) == 0:
             print("No users found upon your request\n")
@@ -86,12 +95,12 @@ def search_users(filename, request):
     list_of_users = []
     fields, rows = read_csv(filename)
     if len(rows) == 0:
-        print("File is empty\n")
+        print("No rows found\n")
     else:
         for row in rows:
-            for elem in row.split():
-                if request in elem:
-                    list_of_users.append(rows)
+            for elem in row:
+                if request in elem and row not in list_of_users:
+                    list_of_users.append(row)
         if len(list_of_users) == 0:
             print("No users found upon your request\n")
     return list_of_users
@@ -99,22 +108,20 @@ def search_users(filename, request):
 
 def make_correction(filename, colon_in_field, new_value, requested_user):
     """Correct value in user"""
-    while True
-        fields, rows = read_csv(filename)
-        user = filter_users(rows, requested_user)
-        if len(rows) == 0:
-            print("File is empty\n")
-            break
-        elif len(user) < 1:
-            print("No users found upon your request, type in id for better accuracy\n")
-            break
-        elif len(user) > 1:
-            print("Too mush users found, type in id for better accuracy\n")
+    user = filter_users(filename, requested_user)
+    fields, rows = read_csv(filename)
+    if len(rows) == 0:
+        print("No rows found\n")
+    elif len(user) < 1:
+        pass
+    elif len(user) > 1:
+        print("Too much users found, type in id for better accuracy\n")
+        for user in user:
             print(user)
-        else:
-            print(user)
-            request_index = fields.index(colon_in_field)
-            user[request_index] = new_value
-            print(user)
-            fields, rows = converter(fields, rows)
-            write_csv(filename, fields, rows)
+    else:
+        print(user[0])
+        request_index = fields.index(colon_in_field)
+        user_index = rows.index(user[0])
+        rows[user_index][request_index] = new_value
+        print(rows[user_index])
+        write_csv(filename, fields, rows)
