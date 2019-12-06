@@ -8,6 +8,10 @@ class Figures:
     def __init__(self, name):
         self.name = name
 
+    def find_length(self, point1, point2):
+        length = (((point2.y - point1.y) ** 2) + ((point2.x - point1.x) ** 2)) ** 0.5
+        return length
+
 
 class Square(Figures):
     def __init__(self, point1, point2, name):
@@ -15,17 +19,13 @@ class Square(Figures):
         self.point1 = point1
         self.point2 = point2
 
-    def find_length(self):
-        length = (((self.point2.y - self.point1.y) ** 2) + ((self.point2.x - self.point1.x) ** 2)) ** 0.5
-        return length
-
     def find_perimeter(self):
-        diagonal = self.find_length()
+        diagonal = self.find_length(self.point1, self.point2)
         perimeter = 2 * (2 ** 0.5) * diagonal
         return round(perimeter, 3)
 
     def find_square(self):
-        d = self.find_length()
+        d = self.find_length(self.point1, self.point2)
         s = 0.5 * (d ** 2)
         return round(s, 3)
 
@@ -53,9 +53,9 @@ class Triangle(Figures):
         self.c = c
 
     def find_sides(self):
-        ab = (((self.a.y - self.b.y) ** 2) + ((self.a.x - self.b.x) ** 2)) ** 0.5
-        bc = (((self.b.y - self.c.y) ** 2) + ((self.b.x - self.c.x) ** 2)) ** 0.5
-        ca = (((self.c.y - self.a.y) ** 2) + ((self.c.x - self.a.x) ** 2)) ** 0.5
+        ab = self.find_length(self.a, self.b)
+        bc = self.find_length(self.b, self.c)
+        ca = self.find_length(self.b, self.c)
         return ab, bc, ca
 
     def find_perimeter(self):

@@ -1,4 +1,4 @@
-from classes import Point, Figures, Circle, Triangle, Square
+from classes import Point, Circle, Triangle, Square
 
 
 def main():
