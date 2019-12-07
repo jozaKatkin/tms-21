@@ -7,4 +7,10 @@
 
 from ui_func import my_calc
 
-my_calc()
+
+def main():
+    my_calc()
+
+
+if __name__ == main():
+    main()
