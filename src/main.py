@@ -5,3 +5,12 @@
 # Программа должна состоять из четырех файлов (main.py, func.py, ui_func.py exceptions.py)
 
 
+from ui_func import my_calc
+
+
+def main():
+    my_calc()
+
+
+if __name__ == "__main__":
+    main()
