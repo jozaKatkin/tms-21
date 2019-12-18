@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String
-
 from db_connection import Base
 
 
@@ -10,3 +9,7 @@ class Group(Base):
 
     def __repr__(self):
         return f'id: {self.id} Name: {self.name}'
+
+
+
+

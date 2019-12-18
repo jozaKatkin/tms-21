@@ -3,10 +3,10 @@ from album import Album
 from artist import Artist
 from db_connection import Base, engine
 
+Base.metadata.create_all(engine)
+
 
 def main():
-    Base.metadata.create_all(engine)
-
     Session = sessionmaker(bind=engine)
     session = Session()
 
