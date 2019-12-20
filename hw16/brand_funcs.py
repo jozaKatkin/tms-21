@@ -1,17 +1,13 @@
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 from brand import Brand
-from db_connections import engine
+from db_connections import ENGINE
 
-
-def session_starter():
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
+Session = sessionmaker(bind=ENGINE)
 
 
 def get_brands():
-    session = session_starter()
+    session = Session()
     brands = session.query(Brand).all()
     session.close()
     return brands
@@ -29,7 +25,7 @@ def enter_brand():
 
 
 def add_brand():
-    session = session_starter()
+    session = Session()
     name = enter_brand()
     brand = Brand(
         name=name
@@ -40,14 +36,14 @@ def add_brand():
 
 
 def get_brand(brand_id):
-    session = session_starter()
+    session = Session()
     brand = session.query(Brand).filter_by(id=brand_id).first()
     session.close()
     return brand
 
 
 def brand_update():
-    session = session_starter()
+    session = Session()
     id_ = input('Enter id: ')
     brand = get_brand(id_)
     new_value = enter_brand()
@@ -58,7 +54,7 @@ def brand_update():
 
 
 def brand_delete():
-    session = session_starter()
+    session = Session()
     id_ = input("Enter id: ")
     brand = get_brand(id_)
     session.delete(brand)

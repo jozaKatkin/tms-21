@@ -1,7 +1,7 @@
 from ui import ui
-from hw16.db_connections import Base, engine
+from hw16.db_connections import Base, ENGINE
 
-Base.metadata.create_all(engine)
+Base.metadata.create_all(ENGINE)
 
 
 def main():

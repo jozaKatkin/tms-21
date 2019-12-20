@@ -1,17 +1,14 @@
 from sqlalchemy.orm import sessionmaker
 from brand import Brand
 from car import Car
-from db_connections import engine
+from db_connections import ENGINE
+from brand_funcs import print_brands, get_brand
 
-
-def session_starter():
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
+Session = sessionmaker(bind=ENGINE)
 
 
 def get_cars():
-    session = session_starter()
+    session = Session()
     cars = session.query(Car).all()
     session.close()
     return cars
@@ -20,7 +17,7 @@ def get_cars():
 def print_cars():
     cars = get_cars()
     for car in cars:
-        print("{: <2s}{:<5s}{:<5s}".format(str(car.id), str(car.model), str(car.release_year)))
+        print(str(car))
 
 
 def enter_car():
@@ -31,14 +28,14 @@ def enter_car():
 
 
 def search_by_string(brand_name):
-    session = session_starter()
+    session = Session()
     brand = session.query(Brand).filter_by(name=brand_name).first()
     session.close()
     return brand
 
 
 def add_car():
-    session = session_starter()
+    session = Session()
     model, release_year, brand_name = enter_car()
     brand = search_by_string(brand_name)
     car = Car(
@@ -52,7 +49,7 @@ def add_car():
 
 
 def get_car(car_id):
-    session = session_starter()
+    session = Session()
     car = session.query(Car).filter_by(id=car_id).first()
     session.close()
     return car
@@ -74,19 +71,25 @@ def choose_colon():
 
 
 def car_update():
-    id_ = input('Enter id: ')
+    id_ = input('Enter car id: ')
     car = get_car(id_)
     colon = choose_colon()
-    new_value = input("\nEnter new value: ")
-    setattr(car, colon, new_value)
-    session = session_starter()
+    if colon == 'brand':
+        print_brands()
+        brand_id = input('Brand id: ')
+        brand = get_brand(brand_id)
+        car.brand = brand
+    else:
+        new_value = input('\nEnter new value: ')
+        setattr(car, colon, new_value)
+    session = Session()
     session.add(car)
-    print(f'Car: {car} successfully updated!')
     session.commit()
+    print(f'Car ID:{car} successfully updated!')
 
 
 def car_delete():
-    session = session_starter()
+    session = Session()
     id_ = input("Enter id: ")
     car = get_car(id_)
     session.delete(car)

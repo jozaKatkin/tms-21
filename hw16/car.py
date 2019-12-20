@@ -13,7 +13,7 @@ class Car(Base):
         Integer, ForeignKey('brand.id'), nullable=False)
 
     brand = relationship(
-        'Brand', foreign_keys='Car.brand_id', backref='cars')
+        'Brand', lazy='subquery', foreign_keys='Car.brand_id', backref='cars')
 
     def __repr__(self):
-        return f'Model: {self.model}, Year: {self.release_year}'
+        return f'id: {self.id}, Model: {self.model}, Year: {self.release_year}, {self.brand}'

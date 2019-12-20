@@ -6,13 +6,11 @@ DB_USER = 'postgres'
 DB_PASSWORD = 'postgres'
 DB_NAME = 'Car - Brand'
 DB_ECHO = True
-
-engine = create_engine(
-    # "postgresql://postgres:postgres@localhost/test",
+ENGINE = create_engine(
     f'postgresql://{DB_USER}:{DB_PASSWORD}@localhost/{DB_NAME}',
-    echo=DB_ECHO,
+    echo=False,
 )
-if not database_exists(engine.url):
-    create_database(engine.url)
+if not database_exists(ENGINE.url):
+    create_database(ENGINE.url)
 
 Base = declarative_base()
