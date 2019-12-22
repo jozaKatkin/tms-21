@@ -5,11 +5,11 @@
 # Программа должна состоять из четырех файлов(main.py, classes.py, ui_func.py exceptions.py). [my-oop-t06]
 
 
-from ui_func import my_calc
+from ui_func import ui
 
 
 def main():
-    my_calc()
+    ui()
 
 
 if __name__ == main():

@@ -1,43 +1,42 @@
 from classes import Math
 from exceptions import (
     BadCharError,
-    Exit
+    Exit,
+    WrongInputError
 )
 
+from config import CONFIG, EXIT
 
-def my_calc():
+
+def choose():
+    choice = int(input("Enter your choice: "))
+    if not choice:
+        return EXIT
+    operation_data = CONFIG["operations"].get(choice)
+    if not operation_data:
+        raise WrongInputError
+    x = int(input("Enter x: "))
+    y = int(input("Enter y: "))
+    math = Math(x, y)
+    res = getattr(math, operation_data["operation"])()
+    print((operation_data["result_pattern"]).format(x, y, res))
+
+
+def print_operations():
+    print("Choose operation: ")
+    operations = CONFIG["operations"]
+    available_operations = sorted(CONFIG["available_operations"])
+    list(map(lambda operation_code: print(operations[operation_code]['choice_message']), available_operations))
+    
+
+def ui():
+    print("START")
     while True:
+        print_operations()
         try:
-            x = float(input('x: '))
-            y = float(input('y: '))
-        except ValueError:
-            print("Type in only numbers")
-            continue
-        sign = input('sign: ')
-        if sign == '0':
-            raise Exit
-        try:
-            if sign not in ['+', '-', '*', '/']:
-                raise BadCharError
-        except BadCharError:
-            print("Wrong input\n+, -, *, / signs expected")
-            continue
-        user_output = Math(x, y)
-        if sign == '/':
-            try:
-                if y == 0:
-                    raise ZeroDivisionError
-            except ZeroDivisionError:
-                print("Cannot divide by zero")
-                continue
-            output = user_output.divide(x, y)
-        elif sign == '*':
-            output = user_output.multi(x, y)
-        elif sign == '+':
-            output = user_output.plus(x, y)
-        elif sign == '-':
-            output = user_output.minus(x, y)
-        print(f'{x} {sign} {y} = {output}')
-
-
-
+            res = choose()
+            if res == EXIT:
+                break
+        except Exception as err:
+            print(err)
+        input("press enter to continue\n")
